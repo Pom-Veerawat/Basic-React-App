@@ -3,13 +3,21 @@ import React, { useEffect, useState } from "react";
 const MainProgram = (props) => {
   const [inputText, setInputText] = useState("start val");
   const [outputText, setOutputText] = useState("กรุณาพิมพ์ และกดปุ่ม");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    
+
     console.log("EFFECT RUNNING");
-    checkingInputVal();
+    setIsLoading(true);
+    const identifier = setTimeout(() => {
+        checkingInputVal();
+        setIsLoading(false);
+      }, 500);
+    //checkingInputVal();
     return() =>{
         console.log("EFFECT CLEANUP");
+
+        clearTimeout(identifier);
     }
 
   }, [inputText]);
@@ -28,12 +36,14 @@ const MainProgram = (props) => {
   };
 
   const checkingInputVal = () => {
+    //setIsLoading(true);
     const thisInputText = inputText;
     if (thisInputText === "done") {
       setOutputText("รัน checkingInputVal finish");
     } else {
       setOutputText("กรุณา done และกดปุ่ม");
     }
+    //setIsLoading(false);
   };
 
   return (
@@ -48,6 +58,9 @@ const MainProgram = (props) => {
       <button onClick={onButtonClickHandler}>Click</button>
       <br></br>
       <p>{outputText}</p>
+      {isLoading ? <div>Loading.....</div> : <div>No load</div>}
+      {/* {isLoading && <div>Loading.....</div>} // if ture ทำ */}
+      {/* {isLoading ?? <div>Loading.....</div>} // if not null ทำ */}
     </div>
   );
 };
