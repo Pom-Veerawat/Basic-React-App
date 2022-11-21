@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Card from './UI/Card';
+import MainProgram from './components/MainProgram';
 
 function App() {
   return (
@@ -8,9 +9,9 @@ function App() {
       <header className="App-header">
         <div>TEST</div>
         <Card>
-          <div>
-            Title Card as props
-          </div>
+          <MainProgram>
+            
+          </MainProgram>
         </Card>
       </header>
     </div>
