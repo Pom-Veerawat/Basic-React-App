@@ -26,6 +26,8 @@ const MainProgram = (props) => {
     console.log("clicked!!");
     console.log(inputText);
     checkingInputVal();
+    props.onTitleChange(inputText);
+
   };
 
   const inputOnchangeHandler = (event) => {
