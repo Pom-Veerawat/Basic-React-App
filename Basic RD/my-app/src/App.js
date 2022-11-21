@@ -7,7 +7,11 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div>TEST</div>
-        <Card title={"Titlessss"} />
+        <Card>
+          <div>
+            Title Card as props
+          </div>
+        </Card>
       </header>
     </div>
   );
