@@ -7,6 +7,7 @@ const MainProgram = (props) => {
 
   useEffect(() => {
 
+    props.p2('in effect');
     console.log("EFFECT RUNNING");
     setIsLoading(true);
     const identifier = setTimeout(() => {
@@ -26,7 +27,7 @@ const MainProgram = (props) => {
     console.log("clicked!!");
     console.log(inputText);
     checkingInputVal();
-    props.onTitleChange(inputText);
+   
 
   };
 
@@ -63,6 +64,12 @@ const MainProgram = (props) => {
       {isLoading ? <div>Loading.....</div> : <div>No load</div>}
       {/* {isLoading && <div>Loading.....</div>} // if ture ทำ */}
       {/* {isLoading ?? <div>Loading.....</div>} // if not null ทำ */}
+
+      <div>
+        <p>
+            {"from p1 ="+ props.p1}
+        </p>
+      </div>
     </div>
   );
 };
