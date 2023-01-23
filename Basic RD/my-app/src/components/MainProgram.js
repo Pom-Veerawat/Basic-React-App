@@ -1,47 +1,59 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import DataContext from "../store/data-context";
+
 function isPalindrome(s) {
-    let isPalindrome = false;
-    let inverted_s = "";
-  
-    for (let index = s.length - 1; index >= 0; index--) {
-      inverted_s = inverted_s + s[index];
-    }
-    //console.log(inverted_s);
-    if (inverted_s == s) {
-      isPalindrome = true;
-    }
-    return isPalindrome;
+  let isPalindrome = false;
+  let inverted_s = "";
+
+  for (let index = s.length - 1; index >= 0; index--) {
+    inverted_s = inverted_s + s[index];
   }
+  //console.log(inverted_s);
+  if (inverted_s == s) {
+    isPalindrome = true;
+  }
+  return isPalindrome;
+}
 const MainProgram = (props) => {
   const [inputText, setInputText] = useState("start val");
   const [outputText, setOutputText] = useState("กรุณาพิมพ์ และกดปุ่ม");
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
+  const dataCtx = useContext(DataContext);
 
-    props.p2('in effect');
+  /* console.log(dataCtx.items);
+  dataCtx.addItem({ id: 10, tmp: "test" }); */
+  const onClickAddCtxItem=()=>{
+    dataCtx.addItem({ id: 10, tmp: "test" });
+  }
+  const onClickShowCtxItem=()=>{
+    console.log(dataCtx.items);
+  }
+
+  useEffect(() => {
+    props.p2("in effect");
     console.log("EFFECT RUNNING");
     setIsLoading(true);
     const identifier = setTimeout(() => {
-        checkingInputVal();
-        setIsLoading(false);
-      }, 500);
+      checkingInputVal();
+      setIsLoading(false);
+    }, 500);
     //checkingInputVal();
-    return() =>{
-        console.log("EFFECT CLEANUP");
+    return () => {
+      console.log("EFFECT CLEANUP");
 
-        clearTimeout(identifier);
-    }
-
+      clearTimeout(identifier);
+    };
   }, [inputText]);
 
   const onButtonClickHandler = () => {
     console.log("clicked!!");
     console.log(inputText);
     checkingInputVal();
-   
-
+    
   };
+
+ 
 
   const inputOnchangeHandler = (event) => {
     setInputText((prev) => {
@@ -119,15 +131,17 @@ const MainProgram = (props) => {
       <br></br>
       <button onClick={onButtonClickHandler}>Click</button>
       <br></br>
+      <button onClick={onClickAddCtxItem}>Add</button>
+      <br></br>
+      <button onClick={onClickShowCtxItem}>Log</button>
+      <br></br>
       <p>{outputText}</p>
       {isLoading ? <div>Loading.....</div> : <div>No load</div>}
       {/* {isLoading && <div>Loading.....</div>} // if ture ทำ */}
       {/* {isLoading ?? <div>Loading.....</div>} // if not null ทำ */}
 
       <div>
-        <p>
-            {"from p1 ="+ props.p1}
-        </p>
+        <p>{"from p1 =" + props.p1}</p>
       </div>
     </div>
   );
